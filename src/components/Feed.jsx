@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
+import { TailSpin } from  'react-loader-spinner';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import SideBar from "./SideBar";
 import Videos from "./Videos";
 import axios from "axios";
@@ -7,6 +9,7 @@ import axios from "axios";
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
     const [videos, setVideos] = useState(null);
+
     useEffect(() => {
         const fetchFeedData = async () => {
             try{   
