@@ -6,6 +6,7 @@ import Search from '@mui/icons-material/Search';
 const SearchBar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
+    
     const onHandleSubmit = (e) => {
         e.preventDefault();
         if(searchTerm){
