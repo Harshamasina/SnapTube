@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import PublishedAt from "./PublishedAt";
+import { Link } from "react-router-dom";
 
 const Comments = ({ id }) => {
     const [comments, setComments] = useState([]);
@@ -32,11 +33,13 @@ const Comments = ({ id }) => {
         <Box>
             {
                 comments.map((comment, index) => (
-                    <Stack key={index} direction="column" textAlign="left" p={2}>
+                    <Stack key={index} direction="column" textAlign="left" ml={4} mb={2}>
                         <Stack direction="row" gap="10px" sx={{ display: "flex", alignItems: "center" }}>
-                            <Typography color="#f7f7f7" variant="subtitle1">
-                                {comment.snippet.topLevelComment.snippet.authorDisplayName}
-                            </Typography>
+                            <Link to={`/channel/${comment.snippet.topLevelComment.snippet.authorChannelId.value}`} style={{ textDecoration: "none" }}>
+                                <Typography color="#f7f7f7" variant="subtitle1">
+                                    {comment.snippet.topLevelComment.snippet.authorDisplayName}
+                                </Typography>
+                            </Link>
 
                             <Typography color="gray" variant="subtitle2">
                                 <PublishedAt publishedAt={comment.snippet.topLevelComment.snippet.publishedAt} />
