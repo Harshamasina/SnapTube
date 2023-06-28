@@ -55,7 +55,7 @@ const Comments = ({ id }) => {
                             </Typography>
                         </Stack>
 
-                        <Typography color="#f7f7f7" variant="subtitle2" ml={6}>
+                        <Typography color="#f7f7f7" variant="subtitle2">
                             <p>{comment.snippet.topLevelComment.snippet.textDisplay}</p>
                         </Typography>
                     </Stack>
