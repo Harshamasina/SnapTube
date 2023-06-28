@@ -102,6 +102,16 @@ const VideoDetail = () => {
                                     ))
                                 }
                             </Typography>
+
+                            <Typography P={2} mt={2} color="#f7f7f7" variant="subtitle2" fontWeight={500}>
+                            {
+                                new Date(videoDetail?.snippet?.publishedAt).toLocaleDateString(undefined, {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })
+                            }
+                            </Typography>
                         </Box>
 
                         <Typography variant="body1" sx={{ opacity: 0.7 }} p={2} color="#f7f7f7" fontWeight={550}>

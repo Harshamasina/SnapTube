@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const Comments = ({ id }) => {
     const [comments, setComments] = useState([]);
+    const profileAlt = "https://cellix-bio-mis.s3.ap-south-1.amazonaws.com/Chatterbox/snaptube-website-favicon-color.png";
     
     useEffect(() => {
         const fetchComments = async () => {
@@ -35,6 +36,14 @@ const Comments = ({ id }) => {
                 comments.map((comment, index) => (
                     <Stack key={index} direction="column" textAlign="left" ml={4} mb={2}>
                         <Stack direction="row" gap="10px" sx={{ display: "flex", alignItems: "center" }}>
+                            <img 
+                                src={
+                                    comment.snippet.topLevelComment.snippet.authorProfileImageUrl || profileAlt
+                                } 
+                                alt="pic" 
+                                style={{ width: "40px", height: "40px", borderRadius: "50%" }} 
+                            />
+                            
                             <Link to={`/channel/${comment.snippet.topLevelComment.snippet.authorChannelId.value}`} style={{ textDecoration: "none" }}>
                                 <Typography color="#f7f7f7" variant="subtitle1">
                                     {comment.snippet.topLevelComment.snippet.authorDisplayName}
@@ -46,7 +55,7 @@ const Comments = ({ id }) => {
                             </Typography>
                         </Stack>
 
-                        <Typography color="#f7f7f7" variant="subtitle2">
+                        <Typography color="#f7f7f7" variant="subtitle2" ml={6}>
                             <p>{comment.snippet.topLevelComment.snippet.textDisplay}</p>
                         </Typography>
                     </Stack>
