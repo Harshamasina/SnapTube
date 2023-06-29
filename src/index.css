@@ -40,10 +40,23 @@ a {
   width: 100% !important;
 }
 
-.search-bar{
-  border:none;
-  outline:none;
-  width:350px;
+.search-bar {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  outline: none;
+  color: #f7f7f7 !important;
+}
+
+.search-bar:focus {
+  outline: none;
+}
+
+.search-button {
+  padding: 10px;
+  color: #ff0000;
 }
 
 .category-btn{
