@@ -1,3 +1,5 @@
+import { auth } from './Config/Firebase';
+import { useState, useEffect } from 'react';
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
@@ -7,8 +9,7 @@ import VideoDetail from './components/VideoDetail';
 import ChannelDetail from './components/ChannelDetail';
 import SearchFeed from './components/SearchFeed';
 import SignIn from './components/SignIn';
-import { auth } from './Config/Firebase';
-import { useState, useEffect } from 'react';
+import Error from './components/Error';
 
 const App = () => {
   const [login, setLogin] = useState(JSON.parse(localStorage.getItem('login')));
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/video/:id' element={login ? <VideoDetail /> : <Navigate to='/signin' />} />
           <Route path='/channel/:id' element={login ? <ChannelDetail /> : <Navigate to='/signin' />} />
           <Route path='/search/:searchTerm' element={login ? <SearchFeed /> : <Navigate to='/signin' />} />
+          <Route path='*' element={<Error />} />
         </Routes>
       </Box>
     </BrowserRouter>

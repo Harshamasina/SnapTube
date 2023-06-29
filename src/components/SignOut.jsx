@@ -9,13 +9,19 @@ const SignOut = () => {
     const { currentUser } = useContext(AuthContext);
 
     const handleSignOut = () => {
-        signOut(auth).then(() => {
-            window.alert("Signed Out Successfully");
-            localStorage.removeItem('user');
-            navigate('/signin');
-        }).catch((err) => {
-            console.log(err);
-        });
+        const confirmed = window.confirm(`${currentUser.displayName}, Are you sure you want to sign out?`);
+        
+        if (confirmed) {
+          signOut(auth)
+            .then(() => {
+              window.alert("Signed Out Successfully");
+              localStorage.removeItem('user');
+              navigate('/signin');
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
     };
 
     return (
