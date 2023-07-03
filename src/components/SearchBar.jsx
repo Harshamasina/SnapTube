@@ -26,7 +26,7 @@ const SearchBar = () => {
                 pl: 2,
                 boxShadow: "none",
                 mr: { sm: 5 },
-                width: "500px",
+                width: "30vw",
                 height: "40px",
                 background: "#18191A",
             }}

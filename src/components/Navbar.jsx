@@ -6,19 +6,21 @@ import SignOut from "./SignOut";
 
 const Navbar = () => {
     return (
-        <Stack direction="row" alignItems="center" p={2} 
+        <Stack direction="row" alignItems="center" p={2}
+            className="navbar-stack"
             sx={{ 
                 position: "sticky", 
                 top: 0, 
-                backgroundColor: "#18191A", 
-                justifyContent: "space-between", 
+                backgroundColor: "#18191A",  
                 zIndex: 10 
             }}
         >
             <Link to="/" style={{ display: "flex", alignItems: "center" }}>
                 <img src={logo} alt="logo" height="45" />
             </Link>
+
             <SearchBar />
+            
             <SignOut /> 
         </Stack>
     )

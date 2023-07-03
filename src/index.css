@@ -96,7 +96,20 @@ a {
   .react-player {
     height: 45vh !important;
   }
+
   .search-bar{
-    width:200px;
+    width: 250px !important;
+  }
+}
+
+.navbar-stack{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-stack{
+    display: flex;
+    flex-direction: column !important;
   }
 }
