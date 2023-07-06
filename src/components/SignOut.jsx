@@ -8,24 +8,24 @@ import { useNavigate } from "react-router-dom";
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 
 const SignOut = () => {
-  const { currentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    const confirmed = window.confirm(`${currentUser.displayName}, Are you sure you want to sign out?`);
+    const handleSignOut = () => {
+        const confirmed = window.confirm(`${currentUser.displayName}, Are you sure you want to sign out?`);
 
-    if (confirmed) {
-      signOut(auth)
-        .then(() => {
-          window.alert("Signed Out Successfully");
-          localStorage.removeItem('user');
-          navigate('/signin');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
+        if (confirmed) {
+        signOut(auth)
+            .then(() => {
+            window.alert("Signed Out Successfully");
+            localStorage.removeItem('login');
+            navigate('/signin');
+            })
+            .catch((err) => {
+            console.log(err);
+            });
+        }
+    };
 
     return (
         <Box>

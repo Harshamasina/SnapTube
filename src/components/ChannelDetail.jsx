@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import ChannelCard from "./ChannelCard";
 import Videos from "./Videos";
+import { Helmet } from "react-helmet";
 
 const ChannelDetail = () => {
     const { id } = useParams();
@@ -49,16 +50,23 @@ const ChannelDetail = () => {
     }, [id]);
 
     return (
-        <Box minHeight="95vh">
-            <Box>
-                <ChannelCard channelDetail={channelDetail} />
+        <div>
+            <Helmet>
+                <title>{`${channelDetail?.snippet?.title} - SnapTube`}</title>
+                <meta name="description" content={channelDetail?.snippet?.description} />
+            </Helmet>
+
+            <Box minHeight="95vh">
+                <Box>
+                    <ChannelCard channelDetail={channelDetail} />
+                </Box>
+                <Box display="flex" p={2}>
+                    <Box sx={{ mr: { sm: '100px' } }} />
+                    <Videos videos={videos} />
+                </Box>
             </Box>
-            <Box display="flex" p={2}>
-                <Box sx={{ mr: { sm: '100px' } }} />
-                <Videos videos={videos} />
-            </Box>
-        </Box>
-    )
+        </div>
+    );
 };
 
 export default ChannelDetail;

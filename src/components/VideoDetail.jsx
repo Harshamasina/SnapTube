@@ -9,6 +9,7 @@ import PublishedAt from "./PublishedAt";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import Comments from "./Comments";
+import { Helmet } from "react-helmet";
 
 const VideoDetail = () => {
     const { id } = useParams();
@@ -58,75 +59,82 @@ const VideoDetail = () => {
     }, [id]);
 
     return (
-        <Box minHeight="95vh">
-            <Stack direction={{ xs: "column", md: "row" }}>
-                <Box flex={1}>
-                    <Box sx={{ width: "100%", top: "86px" }}>
-                        <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} className="react-player" controls />
+        <div>
+            <Helmet>
+                <title>{`${videoDetail?.snippet?.title} | SnapTube`}</title>
+                <meta name="description" content={videoDetail?.snippet?.description} />
+            </Helmet>
 
-                        <Typography color="#f7f7f7" variant="h5" fontWeight="bold" p={2}>
-                            {videoDetail?.snippet?.title}
-                        </Typography>
+            <Box minHeight="95vh">
+                <Stack direction={{ xs: "column", md: "row" }}>
+                    <Box flex={1}>
+                        <Box sx={{ width: "100%", top: "86px" }}>
+                            <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} className="react-player" controls />
 
-                        <Typography ml={2}>
-                            <PublishedAt publishedAt={videoDetail?.snippet?.publishedAt} />
-                        </Typography>
+                            <Typography color="#f7f7f7" variant="h5" fontWeight="bold" p={2}>
+                                {videoDetail?.snippet?.title}
+                            </Typography>
 
-                        <Stack direction="row" justifyContent="space-between" sx={{ color: "#f7f7f7" }} py={1} px={2} >
-                            <Link to={`/channel/${videoDetail?.snippet?.channelId}`}>
-                                <Typography variant="p" fontWeight="bold" color="#f7f7f7" >
-                                    {videoDetail?.snippet?.channelTitle}
-                                    <CheckCircleOutline sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
-                                </Typography>
-                            </Link>
+                            <Typography ml={2}>
+                                <PublishedAt publishedAt={videoDetail?.snippet?.publishedAt} />
+                            </Typography>
 
-                            <Stack direction="row" gap="20px">
-                                <Typography variant="body1" sx={{ display: "flex", alignItems: "center", opacity: 0.7 }}>
-                                    <VisibilityIcon sx={{ marginRight: "5px" }} /> {parseInt(videoDetail?.statistics?.viewCount).toLocaleString()} views
-                                </Typography>
+                            <Stack direction="row" justifyContent="space-between" sx={{ color: "#f7f7f7" }} py={1} px={2} >
+                                <Link to={`/channel/${videoDetail?.snippet?.channelId}`}>
+                                    <Typography variant="p" fontWeight="bold" color="#f7f7f7" >
+                                        {videoDetail?.snippet?.channelTitle}
+                                        <CheckCircleOutline sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
+                                    </Typography>
+                                </Link>
 
-                                <Typography variant="body1" sx={{ display: "flex", alignItems: "center", opacity: 0.7 }}>
-                                    <ThumbUpOffAltIcon sx={{ marginRight: "5px" }} /> {parseInt(videoDetail?.statistics?.likeCount).toLocaleString()} likes
-                                </Typography>
+                                <Stack direction="row" gap="20px">
+                                    <Typography variant="body1" sx={{ display: "flex", alignItems: "center", opacity: 0.7 }}>
+                                        <VisibilityIcon sx={{ marginRight: "5px" }} /> {parseInt(videoDetail?.statistics?.viewCount).toLocaleString()} views
+                                    </Typography>
+
+                                    <Typography variant="body1" sx={{ display: "flex", alignItems: "center", opacity: 0.7 }}>
+                                        <ThumbUpOffAltIcon sx={{ marginRight: "5px" }} /> {parseInt(videoDetail?.statistics?.likeCount).toLocaleString()} likes
+                                    </Typography>
+                                </Stack>
                             </Stack>
-                        </Stack>
 
-                        <Box p={2}>
-                            <Typography color="#f7f7f7" variant="subtitle2">
+                            <Box p={2}>
+                                <Typography color="#f7f7f7" variant="subtitle2">
+                                    {
+                                        videoDetail?.snippet?.description.split('\n').map((paragraph, index) => (
+                                            <React.Fragment key={index}>
+                                            {paragraph}
+                                            <br />
+                                            </React.Fragment>
+                                        ))
+                                    }
+                                </Typography>
+
+                                <Typography P={2} mt={2} color="#f7f7f7" variant="subtitle2" fontWeight={500}>
                                 {
-                                    videoDetail?.snippet?.description.split('\n').map((paragraph, index) => (
-                                        <React.Fragment key={index}>
-                                        {paragraph}
-                                        <br />
-                                        </React.Fragment>
-                                    ))
+                                    new Date(videoDetail?.snippet?.publishedAt).toLocaleDateString(undefined, {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })
                                 }
+                                </Typography>
+                            </Box>
+
+                            <Typography variant="body1" sx={{ opacity: 0.7 }} p={2} color="#f7f7f7" fontWeight={550}>
+                                {parseInt(videoDetail?.statistics?.commentCount).toLocaleString()} comments
                             </Typography>
 
-                            <Typography P={2} mt={2} color="#f7f7f7" variant="subtitle2" fontWeight={500}>
-                            {
-                                new Date(videoDetail?.snippet?.publishedAt).toLocaleDateString(undefined, {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                })
-                            }
-                            </Typography>
+                            <Comments id={id} />
                         </Box>
-
-                        <Typography variant="body1" sx={{ opacity: 0.7 }} p={2} color="#f7f7f7" fontWeight={550}>
-                            {parseInt(videoDetail?.statistics?.commentCount).toLocaleString()} comments
-                        </Typography>
-
-                        <Comments id={id} />
                     </Box>
-                </Box>
-                
-                <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-                    <Videos videos={videos} direction="column" />
-                </Box> 
-            </Stack>
-        </Box>
+                    
+                    <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
+                        <Videos videos={videos} direction="column" />
+                    </Box> 
+                </Stack>
+            </Box>
+        </div>
     )
 };
 

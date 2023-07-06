@@ -5,6 +5,7 @@ import Videos from "./Videos";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
+import { Helmet } from "react-helmet";
 
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
@@ -33,32 +34,38 @@ const Feed = () => {
     }, [selectedCategory]);
 
     return (
-        <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
-            <Box 
-                sx={{ 
-                    height: { sx: "auto", md: "92vh" }, 
-                    borderRight: "1px solid #3d3d3d", 
-                    px: { sx: 0, md: 2 } 
-                }}
-            >
-                <SideBar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+        <div>
+            <Helmet>
+                <title>{`${selectedCategory} Videos - SnapTube`}</title>
+            </Helmet>
 
-                <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
-                    Copyright © 2023 Mani Harsha
-                </Typography>
-            </Box>
+            <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
+                <Box 
+                    sx={{ 
+                        height: { sx: "auto", md: "92vh" }, 
+                        borderRight: "1px solid #3d3d3d", 
+                        px: { sx: 0, md: 2 } 
+                    }}
+                >
+                    <SideBar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
-            <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-                <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white", textTransform: "uppercase" }}>
-                    Hi, <span style={{ color: "#BF0000" }}>{currentUser.displayName}</span>
-                </Typography>
+                    <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
+                        Copyright © 2023 Mani Harsha
+                    </Typography>
+                </Box>
 
-                <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
-                    {selectedCategory} <span style={{color: "#BF0000"}}>Videos</span>
-                </Typography>
-                <Videos videos={videos} />
-            </Box>
-        </Stack>
+                <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+                    <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white", textTransform: "uppercase" }}>
+                        Hi, <span style={{ color: "#BF0000" }}>{currentUser.displayName}</span>
+                    </Typography>
+
+                    <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}>
+                        <span style={{color: "#BF0000"}}>{selectedCategory}</span> Videos
+                    </Typography>
+                    <Videos videos={videos} />
+                </Box>
+            </Stack>
+        </div>
     )
 };
 

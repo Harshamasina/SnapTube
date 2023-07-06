@@ -3,7 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { demoProfilePicture } from '../utils/constants';
 
 const ChannelCard = ({ channelDetail }) => {
-    console.log(channelDetail);
+
     return (
         <Box
             sx={{
